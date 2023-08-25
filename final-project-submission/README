@@ -1,0 +1,27 @@
+FILE ORGANIZATION
+
+There is a single code file. It is the .ipynb notebook.
+
+
+
+TO RUN
+
+
+Image Segmentation:
+
+Running the image segmentation using Mask R-CNN is a three-step process which is specified as followed:
+
+1. Load an image which is to be segmented. Specify a (2,5)-shaped set of box points which represent the x- and y-coordinates of the image patch in the order of top left, top right, bottom right, bottom left, and top left. Pass the input image and these box points into the compute_image_patch method to derive the image patch to be segmented.
+
+2. Use the determine_and_show_masks method with the image_patch as a parameter to get a tensor of masks resulting from the Mask R-CNN architecture (this method will also display the masks in a left-to-right, top-to-bottom, row-first ordering.
+
+3. Pass into the compute_full_mask method the tensor of masks determined previously as well as the (zero-indexed!) indices of the masks from that tensor you wish to use to derive the composite mask for the image. Pass this composite mask, as well as the original input image, into the compute_image_mask method to determine the size-corrected image mask.
+
+
+Seam Carving:
+
+The seam carving method can be run in one of 2 ways:
+
+1. seam_carve(sample_img, num_iters, mask_image = None) allows us to specify a specific number of iterations for which to run our seam carving method. We must pass in an image which we wish to seam carve as well as a specific number of iterations; we are also able to pass in a mask_image which can help alter the pixel energies for a specific object within the image and make the algorithm remove that object.
+
+2. mask_seam_carve(sample_img, mask_image) requires to specify an input image as well as a mask image corresponding to an object we wish to remove; the algorithm then calls the previous seam_carve method with a num_iters parameter of 1 until the object specified by the mask has been fully removed from the input image. 
